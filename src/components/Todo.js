@@ -2,7 +2,6 @@ import React from "react";
 
 export default function Todo(props)
 {
-    console.log(props);
     return(
         <li className="todo stack-small">
             <div className="c-cb">
