@@ -1,8 +1,11 @@
+import Todo from "./components/Todo";
+
 function App(props) 
 {
     return (
         <div className="todoapp stack-large">
             <h1>Todo List</h1>
+
             <form>
                 <h2 className="label-wrapper">
                     <label htmlFor="new-todo-input" className="label__lg">
@@ -44,29 +47,15 @@ function App(props)
             </div>
 
             <h2 id="list-heading">... tasks remaining</h2>
+            
             <ul
             role="list"
             className="todo-list stack-large stack-exception"
             aria-labelledby="list-heading"
             >
-                <li className="todo stack-small">
-                    <div className="c-cb">
-                        <input type="checkbox" id="todo-0" defaultChecked={true} />
-                        <label className="todo-label" htmlFor="todo-0">
-                            Eat
-                        </label>
-                    </div>
-
-                    <div className="btn-group">
-                        <button type="button" className="btn">
-                            Edit <span className="visually-hidden">Eat</span>
-                        </button>
-
-                        <button type="button" className="btn btn__danger">
-                            Delete <span className="visually-hidden">Eat</span>
-                        </button>
-                    </div>
-                </li>    
+                <Todo name="Eat" completed={ true } id="todo-0"/>
+                <Todo name="Sleep" completed={ false } id="todo-1"/>
+                <Todo name="Repeat" completed={ false } id="todo-2"/>      
             </ul>
         </div>
     );
