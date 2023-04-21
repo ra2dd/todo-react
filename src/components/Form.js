@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 
 function Form(props)
 {
+    //adding name state as empty string
     const [name, setName] = useState('');
 
     /*
         Handling user input
     */
+    //using prop addTask function upon submitting the form
     function handleSubmit(event)
     {
         event.preventDefault();
@@ -21,6 +23,7 @@ function Form(props)
         }
     }
 
+    //changing name state as from input value changes
     function handleChange(event)
     {
         setName(event.target.value);

@@ -7,10 +7,13 @@ import { nanoid } from "nanoid";
 function App(props) 
 {
     /*
-        Handing tasks
+        Handling tasks
     */
+    //using state to retreive curent state of index.js prop
+    //and function to change the state
     const [tasks, setTasks] = useState(props.tasks);
 
+    //Generating data to form component
     const taskList = tasks.map((task) => 
         (
             <Todo 
@@ -18,26 +21,71 @@ function App(props)
                 name={ task.name } 
                 completed={ task.completed } 
                 key= { task.id }
+                toogleTaskCompleted= { toogleTaskCompleted }
             />
         )
     );
 
+    //
     function addTask(name)
     {
         const newTask = { id: `todo-${nanoid()}`, name, completed: false };
         setTasks([...tasks, newTask]);
     }
 
-
+    
+    /*
+        Counting tasks
+    */
     const tasksNoun = tasks.length > 1 ? 'tasks' : 'task';
     const headingText = `${tasks.length} ${tasksNoun} remaining`;
+
+    /*
+        Handling task completion
+    */
+    function toogleTaskCompleted(id)
+    {   
+        /*
+        tasks.forEach(
+            (task) =>
+            {
+                if(task.id === id)
+                {
+                    if(task.completed === false)
+                    {
+                        task.completed = true;
+                    }
+                    else
+                    {
+                        task.completed = false;
+                    }
+                }
+            }
+        )
+        */
+
+        const updatedTasks = tasks.map
+        (
+            (task) =>
+            {
+                if(task.id === id)
+                {
+                    return {...task, completed: !task.completed}
+                }
+                return task;
+            }
+        )
+        setTasks(updatedTasks);
+    }
 
     return (
         <div className="todoapp stack-large">
             <h1>Todo List</h1>
 
+            { /*Inserting Form component with addtask function as prop*/ }
             <Form addTask={ addTask } />
 
+            { /*Inserting FilterButton component*/}
             <div className="filters btn-group stack-exception">
                 <FilterButton />
                 <FilterButton />
@@ -51,7 +99,9 @@ function App(props)
             className="todo-list stack-large stack-exception"
             aria-labelledby="list-heading"
             >
-
+            
+            { /*Inserting taskList which generates Todo component 
+            with tasks state values as prop*/}
             { taskList }
 
             </ul>

@@ -5,7 +5,13 @@ export default function Todo(props)
     return(
         <li className="todo stack-small">
             <div className="c-cb">
-                <input type="checkbox" id={ props.id } defaultChecked={ props.completed } />
+                <input 
+                type="checkbox" 
+                id={ props.id } 
+                defaultChecked={ props.completed }
+                onChange={ () => props.toogleTaskCompleted(props.id) }
+                />
+
                 <label className="todo-label" htmlFor={ props.id }>
                     { props.name }
                 </label>
