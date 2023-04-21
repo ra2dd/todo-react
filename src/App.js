@@ -22,6 +22,7 @@ function App(props)
                 completed={ task.completed } 
                 key= { task.id }
                 toogleTaskCompleted= { toogleTaskCompleted }
+                deleteTask = { deleteTask }
             />
         )
     );
@@ -41,7 +42,7 @@ function App(props)
     const headingText = `${tasks.length} ${tasksNoun} remaining`;
 
     /*
-        Handling task completion
+        Handling task completion and deletion
     */
     function toogleTaskCompleted(id)
     {   
@@ -76,6 +77,16 @@ function App(props)
             }
         )
         setTasks(updatedTasks);
+    }
+
+    function deleteTask(id)
+    {
+        const remainingTasks = tasks.filter
+        (
+            (task) => task.id !== id
+        )
+        setTasks(remainingTasks);
+        console.log(remainingTasks);
     }
 
     return (
