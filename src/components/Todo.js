@@ -1,9 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Todo(props)
 {
-    return(
-        <li className="todo stack-small">
+    const [isEditing, setEditing] = useState(false);
+
+    const ediitingTemplate = 
+    (
+        <form className="stack-small">
+            <div className="form-group">
+
+                <label className="todo-label" htmlFor={ props.id }>
+                    New name for { props.name }
+                </label>
+
+                <input 
+                type="text" 
+                id={ props.id } 
+                className="todo-text"
+                />
+            </div>
+
+            <div className="btn-group">
+                <button 
+                type="button" 
+                className="btn todo-cancel"
+                onClick={ () => setEditing(false) }
+                >
+                    Cancel <span className="visually-hidden">renaiming { props.name }</span>
+                </button>
+
+                <button 
+                type="submit" 
+                className="btn btn__primary todo-edit" 
+                onClick={ () => props.editTask(props.id) }
+                >
+                    Save <span className="visually-hidden">new name for { props.name }</span>
+                </button>
+            </div>
+        </form> 
+    );
+
+
+    const viewTemplate = 
+    (
+        <div className="stack-small">
             <div className="c-cb">
                 <input 
                 type="checkbox" 
@@ -18,7 +58,10 @@ export default function Todo(props)
             </div>
 
             <div className="btn-group">
-                <button type="button" className="btn">
+                <button 
+                type="button" 
+                className="btn"
+                onClick={ () => setEditing(true) }>
                     Edit <span className="visually-hidden">{ props.name }</span>
                 </button>
 
@@ -30,6 +73,12 @@ export default function Todo(props)
                     Delete <span className="visually-hidden">{ props.name }</span>
                 </button>
             </div>
-        </li> 
+        </div> 
+    );
+
+    return(
+        <li className="todo">
+            { isEditing ? ediitingTemplate : viewTemplate }
+        </li>
     );
 }

@@ -23,6 +23,7 @@ function App(props)
                 key= { task.id }
                 toogleTaskCompleted= { toogleTaskCompleted }
                 deleteTask = { deleteTask }
+                editTask = { editTask }
             />
         )
     );
@@ -42,7 +43,7 @@ function App(props)
     const headingText = `${tasks.length} ${tasksNoun} remaining`;
 
     /*
-        Handling task completion and deletion
+        Handling task completion, edition and deletion
     */
     function toogleTaskCompleted(id)
     {   
@@ -87,6 +88,22 @@ function App(props)
         )
         setTasks(remainingTasks);
         console.log(remainingTasks);
+    }
+
+    function editTask(id, newName)
+    {
+       const editedTasks = tasks.map
+       (
+        (task) =>
+        {
+            if(task.id === id)
+            {
+                return {...task, name: newName}
+            }
+            return task;
+        }
+       );
+       setTasks(editedTasks);
     }
 
     return (
