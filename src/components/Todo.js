@@ -3,10 +3,34 @@ import React, { useState } from "react";
 export default function Todo(props)
 {
     const [isEditing, setEditing] = useState(false);
+    const [newName, setNewName] = useState('');
+
+    /*
+        Handling user input
+    */
+    function handleInputChange(event)
+    {
+        setNewName(event.target.value);
+    }
+
+    function handleSubmit(event)
+    {
+        event.preventDefault();
+        if(newName === '')
+        {
+            alert('You need to provide a new name.');
+        }
+        else
+        {
+            props.editTask(props.id, newName);
+            setNewName('');
+            setEditing(false);
+        }
+    }
 
     const ediitingTemplate = 
     (
-        <form className="stack-small">
+        <form className="stack-small" onSubmit={ handleSubmit }>
             <div className="form-group">
 
                 <label className="todo-label" htmlFor={ props.id }>
@@ -17,6 +41,8 @@ export default function Todo(props)
                 type="text" 
                 id={ props.id } 
                 className="todo-text"
+                value={ newName }
+                onChange={ handleInputChange }
                 />
             </div>
 
