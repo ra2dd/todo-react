@@ -28,6 +28,10 @@ export default function Todo(props)
         }
     }
 
+    /*
+        Templates for rendering defult view
+        and editing view
+    */
     const ediitingTemplate = 
     (
         <form className="stack-small" onSubmit={ handleSubmit }>
