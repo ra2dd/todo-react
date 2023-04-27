@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import usePrevious from "../functions/usePrevious";
 
 export default function Todo(props)
 {
@@ -128,28 +129,7 @@ export default function Todo(props)
     /*
         useEffect section
     */
-    //function for getting the previous value of the element 
-    function usePrevious(value)
-    {
-        const ref = useRef();
-        
-        /*
-            use effect works at the end of generating DOM
-            so at the initlialization the value is undefined
-            and when the document loads usePrevious effect 
-            sets the value to one used as a parameter
-        */
-        useEffect
-        (
-            () =>
-            {
-                ref.current = value;
-            }
-        );
-        
-        return ref.current;
-    }
-
+    
     // constant for checking previous value of isEditing
     const wasEditing = usePrevious(isEditing);
 

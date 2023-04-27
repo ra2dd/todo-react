@@ -3,6 +3,7 @@ import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 import React, { useState, useRef, useEffect } from 'react';
 import { nanoid } from "nanoid";
+import usePrevious from "./functions/usePrevious";
 
 const FILTER_MAP = 
 {
@@ -132,25 +133,11 @@ function App(props)
        setTasks(editedTasks);
     }
 
-    
+
     /*
         Ref for changing focus after task deletion
     */
     const listHeadingRef = useRef(null);
-
-    function usePrevious(value)
-    {
-        const ref = useRef();
-        useEffect
-        (
-            () =>
-            {
-                ref.current = value;
-            }
-        );
-        
-        return ref.current;
-    }
 
     const prevTasksLength = usePrevious(tasks.length);
 
