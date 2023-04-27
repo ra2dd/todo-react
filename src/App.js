@@ -1,7 +1,7 @@
 import Todo from "./components/Todo";
 import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { nanoid } from "nanoid";
 
 const FILTER_MAP = 
@@ -132,6 +132,40 @@ function App(props)
        setTasks(editedTasks);
     }
 
+    
+    /*
+        Ref for changing focus after task deletion
+    */
+    const listHeadingRef = useRef(null);
+
+    function usePrevious(value)
+    {
+        const ref = useRef();
+        useEffect
+        (
+            () =>
+            {
+                ref.current = value;
+            }
+        );
+        
+        return ref.current;
+    }
+
+    const prevTasksLength = usePrevious(tasks.length);
+
+    useEffect
+    (
+        () =>
+        {
+            if(tasks.length - prevTasksLength === -1)
+            {
+                listHeadingRef.current.focus();
+            }
+        },
+        [tasks.length, prevTasksLength]
+    );
+
     return (
         <div className="todoapp stack-large">
             <h1>Todo List</h1>
@@ -144,7 +178,11 @@ function App(props)
                 { filterList }
             </div>
 
-            <h2 id="list-heading">{ headingText }</h2>
+            <h2 
+            id="list-heading"
+            tabIndex="-1"
+            ref= { listHeadingRef }
+            >{ headingText }</h2>
             
             <ul
             role="list"

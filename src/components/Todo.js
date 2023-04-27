@@ -3,24 +3,11 @@ import React, { useEffect, useState, useRef } from "react";
 export default function Todo(props)
 {
     /*
-    Defing Refs
+        Defing Refs
     */
     const editFieldRef = useRef(null);
     const editButtonRef = useRef(null);
 
-    function usePrevious(value)
-    {
-        const ref = useRef();
-        useEffect
-        (
-            () =>
-            {
-                ref.current = value;
-            }
-        );
-        
-        return ref.current;
-    }
 
     /*
         Managing states with editing 
@@ -29,7 +16,6 @@ export default function Todo(props)
     const [isEditing, setEditing] = useState(false);
     const [newName, setNewName] = useState('');
 
-    const wasEditing = usePrevious(isEditing);
 
     /*
         Handling user input
@@ -135,6 +121,38 @@ export default function Todo(props)
             </div>
         </div> 
     );
+
+
+ 
+
+    /*
+        useEffect section
+    */
+    //function for getting the previous value of the element 
+    function usePrevious(value)
+    {
+        const ref = useRef();
+        
+        /*
+            use effect works at the end of generating DOM
+            so at the initlialization the value is undefined
+            and when the document loads usePrevious effect 
+            sets the value to one used as a parameter
+        */
+        useEffect
+        (
+            () =>
+            {
+                ref.current = value;
+            }
+        );
+        
+        return ref.current;
+    }
+
+    // constant for checking previous value of isEditing
+    const wasEditing = usePrevious(isEditing);
+
 
     useEffect
     (
