@@ -154,8 +154,8 @@ function App(props)
     );
 
     return (
-        <div className="todoapp stack-large">
-            <h1>Todo List</h1>
+        <div className="app-container">
+            <h1>Todo app react</h1>
 
             { /*Inserting Form component with addtask function as prop*/ }
             <Form addTask={ addTask } />
